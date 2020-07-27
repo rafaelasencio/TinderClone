@@ -45,6 +45,8 @@ class CardView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        configureGestureRecognizers()
+        
         backgroundColor = .systemPurple
         layer.cornerRadius = 10
         clipsToBounds = true
@@ -79,5 +81,36 @@ class CardView: UIView {
         gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
         gradientLayer.locations = [0.5, 1.1]
         layer.addSublayer(gradientLayer)
+    }
+    
+    func configureGestureRecognizers(){
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        addGestureRecognizer(pan)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleChangePhoto))
+        addGestureRecognizer(tap)
+    }
+    
+    //MARK: - Actions
+    
+    @objc func handlePanGesture(sender: UIPanGestureRecognizer){
+        
+        let translation = sender.translation(in: nil)
+        switch sender.state {
+            
+
+        case .began: print("DEBUG: empezo a mover")
+        case .changed: print("DEBUG: cambio")
+            let degrees = translation.x / 20
+            let angle = degrees * .pi / 180
+            let rotationalTransform = CGAffineTransform(rotationAngle: angle)
+            self.transform = rotationalTransform.translatedBy(x: translation.x, y: translation.y)
+        case .ended: print("DEBUG: termino")
+        @unknown default: break
+        }
+    }
+    
+    @objc func handleChangePhoto(sender: UIPanGestureRecognizer){
+        print("handleChangePhoto")
     }
 }
