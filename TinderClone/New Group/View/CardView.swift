@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum SwipeDirection:Int {
+    case left = -1
+    case right = 1
+}
+
 class CardView: UIView {
     
     //MARK: - Properties
@@ -91,21 +96,48 @@ class CardView: UIView {
         addGestureRecognizer(tap)
     }
     
+    func panCard(sender: UIPanGestureRecognizer){
+        let translation = sender.translation(in: nil)
+        let degrees = translation.x / 20
+        let angle = degrees * .pi / 180
+        let rotationalTransform = CGAffineTransform(rotationAngle: angle)
+        self.transform = rotationalTransform.translatedBy(x: translation.x, y: translation.y)
+    }
+    
+    func resetCardPosition(sender: UIPanGestureRecognizer){
+        let direction: SwipeDirection = sender.translation(in: nil).x > 100 ? .right : .left
+        let shouldDismissCard = abs(sender.translation(in: nil).x) > 100
+        
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
+            
+            if shouldDismissCard {
+                let xTranslation = CGFloat(direction.rawValue) * 1000
+                let offScreenTransform = self.transform.translatedBy(x: xTranslation, y: 0)
+                self.transform = offScreenTransform
+            } else {
+                self.transform = .identity
+            }
+            
+        }) { ( _ ) in
+            print("DEBUG: animation completed")
+            if shouldDismissCard {
+                self.removeFromSuperview()
+            }
+        }
+    }
+    
     //MARK: - Actions
     
     @objc func handlePanGesture(sender: UIPanGestureRecognizer){
         
-        let translation = sender.translation(in: nil)
         switch sender.state {
-            
-
-        case .began: print("DEBUG: empezo a mover")
-        case .changed: print("DEBUG: cambio")
-            let degrees = translation.x / 20
-            let angle = degrees * .pi / 180
-            let rotationalTransform = CGAffineTransform(rotationAngle: angle)
-            self.transform = rotationalTransform.translatedBy(x: translation.x, y: translation.y)
-        case .ended: print("DEBUG: termino")
+        case .began:
+            //Keep animations flowing
+            superview?.subviews.forEach({$0.layer.removeAllAnimations()})
+        case .changed:
+            panCard(sender: sender)
+        case .ended:
+            resetCardPosition(sender: sender)
         @unknown default: break
         }
     }
