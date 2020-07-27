@@ -30,6 +30,7 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        configureCards()
     }
     
     //MARM: - Helpers
@@ -47,5 +48,16 @@ class HomeController: UIViewController {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = .init(top: 0, left: 12, bottom: 0, right: 12)
         stackView.bringSubviewToFront(deckView)
+    }
+    
+    func configureCards(){
+        let cardView1 = CardView()
+        let cardView2 = CardView()
+        
+        deckView.addSubview(cardView1)
+        deckView.addSubview(cardView2)
+        
+        cardView1.fillSuperview()
+        cardView2.fillSuperview()
     }
 }
