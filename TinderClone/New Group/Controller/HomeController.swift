@@ -52,7 +52,7 @@ class HomeController: UIViewController {
     
     func configureCards(){
         let user1 = User(name: "Jane Doe", age: 22, images: [#imageLiteral(resourceName: "jane1"), #imageLiteral(resourceName: "jane2")])
-        let user2 = User(name: "Megan Fox", age: 25, images: [#imageLiteral(resourceName: "kelly1"), #imageLiteral(resourceName: "kelly1")])
+        let user2 = User(name: "Megan Fox", age: 25, images: [#imageLiteral(resourceName: "kelly1"), #imageLiteral(resourceName: "kelly2")])
         
         let cardView1 = CardView(viewModel: CardViewModel(user: user1))
         let cardView2 = CardView(viewModel: CardViewModel(user: user2))

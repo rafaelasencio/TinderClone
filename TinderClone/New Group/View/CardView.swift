@@ -144,6 +144,15 @@ class CardView: UIView {
     }
     
     @objc func handleChangePhoto(sender: UIPanGestureRecognizer){
-        print("handleChangePhoto")
+        let location = sender.location(in: nil).x
+        let shouldShowNextPhoto = location > self.frame.width / 2
+        
+        if shouldShowNextPhoto {
+            viewModel.showNextPhoto()
+        } else {
+            viewModel.showPreviousPhoto()
+        }
+        
+        imageView.image = viewModel.imageToShow
     }
 }
