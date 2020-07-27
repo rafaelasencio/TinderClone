@@ -30,12 +30,6 @@ class CardView: UIView {
     private let infoLabel: UILabel = {
         let lbl = UILabel()
         lbl.numberOfLines = 2
-        
-        let attrText = NSMutableAttributedString(string: "Jane Doe", attributes: [.font: UIFont.systemFont(ofSize: 32, weight: .heavy), .foregroundColor: UIColor.white])
-        
-        attrText.append(NSAttributedString(string: " 20", attributes: [.font: UIFont.systemFont(ofSize: 24), .foregroundColor: UIColor.white]))
-        
-        lbl.attributedText = attrText
         return lbl
     }()
     
@@ -54,6 +48,8 @@ class CardView: UIView {
         super.init(frame: .zero)
         
         configureGestureRecognizers()
+        
+        infoLabel.attributedText = viewModel.userInfoText
         
         imageView.image = viewModel.user.images.first
         
