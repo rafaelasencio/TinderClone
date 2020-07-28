@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>390939888547-ohk8tbjnbehlk8nhpnimrlvh8jlqep0n.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.390939888547-ohk8tbjnbehlk8nhpnimrlvh8jlqep0n</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAfG6TNg0LlLLtJwJVT-c2Fu5np9KahQKU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>390939888547</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>RafaelAB.TinderClone</string>
+	<key>PROJECT_ID</key>
+	<string>tinderclone-cfedd</string>
+	<key>STORAGE_BUCKET</key>
+	<string>tinderclone-cfedd.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:390939888547:ios:d37ea0144a14c6db8da816</string>
+	<key>DATABASE_URL</key>
+	<string>https://tinderclone-cfedd.firebaseio.com</string>
+</dict>
+</plist>
