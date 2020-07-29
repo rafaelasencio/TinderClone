@@ -26,10 +26,7 @@ class LoginController: UIViewController {
     private let emailTextField = CustomTextField(placeholder: "Email")
     
     
-    private let passwordTextField: UITextField = {
-        let tf = CustomTextField(placeholder: "Password", isSecureField: true)
-        return tf
-    }()
+    private let passwordTextField = CustomTextField(placeholder: "Password", isSecureField: true)
     
     private let authButton: AuthButton = {
         let btn = AuthButton(title: "Log In", type: .system)

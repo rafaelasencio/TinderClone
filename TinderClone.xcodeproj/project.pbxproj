@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,8 @@
 		84DCAF1E24D04A6100960B87 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DCAF1D24D04A6100960B87 /* AuthButton.swift */; };
 		84DCAF2024D06B0400960B87 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DCAF1F24D06B0400960B87 /* AuthenticationViewModel.swift */; };
 		84DCAF2224D0749600960B87 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84DCAF2124D0749600960B87 /* GoogleService-Info.plist */; };
+		84EE678B24D081E000D630E3 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE678A24D081E000D630E3 /* AuthService.swift */; };
+		84EE678D24D081F100D630E3 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EE678C24D081F100D630E3 /* Service.swift */; };
 		C1A662C761444FBAF9F09E1B /* Pods_TinderClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB761D348B131E1B4238A96 /* Pods_TinderClone.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +77,8 @@
 		84DCAF1D24D04A6100960B87 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		84DCAF1F24D06B0400960B87 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		84DCAF2124D0749600960B87 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		84EE678A24D081E000D630E3 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		84EE678C24D081F100D630E3 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		9B14F3D0AE7A75EFF1E569C9 /* Pods-TinderClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderClone.release.xcconfig"; path = "Target Support Files/Pods-TinderClone/Pods-TinderClone.release.xcconfig"; sourceTree = "<group>"; };
 		FEAA4A34B28F0B2E853AF961 /* Pods-TinderClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TinderClone.debug.xcconfig"; path = "Target Support Files/Pods-TinderClone/Pods-TinderClone.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,7 +134,12 @@
 		84DCAECF24CF1F5500960B87 /* TinderClone */ = {
 			isa = PBXGroup;
 			children = (
-				84DCAF0024CF1FEF00960B87 /* New Group */,
+				84DCAF0524CF200E00960B87 /* Model */,
+				84DCAF0424CF200B00960B87 /* View */,
+				84DCAF0324CF200A00960B87 /* ViewModel */,
+				84DCAF0224CF200800960B87 /* Controller */,
+				84DCAF0124CF1FEF00960B87 /* API */,
+				84DCAF0624CF202F00960B87 /* Utils */,
 				84DCAED024CF1F5500960B87 /* AppDelegate.swift */,
 				84DCAED224CF1F5500960B87 /* SceneDelegate.swift */,
 				84DCAED624CF1F5500960B87 /* Main.storyboard */,
@@ -160,22 +169,11 @@
 			path = TinderCloneUITests;
 			sourceTree = "<group>";
 		};
-		84DCAF0024CF1FEF00960B87 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-				84DCAF0524CF200E00960B87 /* Model */,
-				84DCAF0424CF200B00960B87 /* View */,
-				84DCAF0324CF200A00960B87 /* ViewModel */,
-				84DCAF0224CF200800960B87 /* Controller */,
-				84DCAF0124CF1FEF00960B87 /* API */,
-				84DCAF0624CF202F00960B87 /* Utils */,
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		84DCAF0124CF1FEF00960B87 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				84EE678A24D081E000D630E3 /* AuthService.swift */,
+				84EE678C24D081F100D630E3 /* Service.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -249,7 +247,6 @@
 				FEAA4A34B28F0B2E853AF961 /* Pods-TinderClone.debug.xcconfig */,
 				9B14F3D0AE7A75EFF1E569C9 /* Pods-TinderClone.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -438,9 +435,11 @@
 				84DCAF1224CF8E7E00960B87 /* User.swift in Sources */,
 				84DCAF0824CF209600960B87 /* HomeController.swift in Sources */,
 				84DCAF1A24CF9D6B00960B87 /* RegistrationController.swift in Sources */,
+				84EE678D24D081F100D630E3 /* Service.swift in Sources */,
 				84DCAF0E24CF254500960B87 /* ButtomControlsStackView.swift in Sources */,
 				84DCAF1C24D02C5600960B87 /* CustomTextField.swift in Sources */,
 				84DCAF0A24CF21B400960B87 /* Extensions.swift in Sources */,
+				84EE678B24D081E000D630E3 /* AuthService.swift in Sources */,
 				84DCAF1424CF904A00960B87 /* CardViewModel.swift in Sources */,
 				84DCAF1824CF9D0A00960B87 /* LoginController.swift in Sources */,
 			);

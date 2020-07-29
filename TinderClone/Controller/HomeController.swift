@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class HomeController: UIViewController {
     
@@ -28,9 +29,10 @@ class HomeController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        checkIfUserIsLoggedIn()
         configureUI()
         configureCards()
+        
     }
     
     //MARM: - Helpers
@@ -62,5 +64,35 @@ class HomeController: UIViewController {
         
         cardView1.fillSuperview()
         cardView2.fillSuperview()
+    }
+    
+    func presentLoginController(){
+        //Its called after make API call, to go back in the main thread
+        DispatchQueue.main.async {
+            let controller = LoginController()
+            let nav = UINavigationController(rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true, completion: nil)
+        }
+    }
+    
+    //MARM: - API
+    
+    func checkIfUserIsLoggedIn(){
+        if Auth.auth().currentUser == nil {
+            print("DEBUG: user not logged in")
+            presentLoginController()
+        } else {
+            print("DEBUG: user is logged in")
+        }
+    }
+    
+    func logout(){
+        do {
+            try Auth.auth().signOut()
+            presentLoginController()
+        } catch {
+            print("DEBUG: error sign out")
+        }
     }
 }

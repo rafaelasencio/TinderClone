@@ -28,10 +28,9 @@ class RegistrationController: UIViewController {
     
     private let fullnameTextField = CustomTextField(placeholder: "Full Name")
     
-    private let passwordTextField: UITextField = {
-        let tf = CustomTextField(placeholder: "Password", isSecureField: true)
-        return tf
-    }()
+    private let passwordTextField = CustomTextField(placeholder: "Password", isSecureField: true)
+    
+    private var profileImage: UIImage?
     
     private let registrationButton: AuthButton = {
         let btn = AuthButton(title: "Register", type: .system)
@@ -67,7 +66,21 @@ class RegistrationController: UIViewController {
     }
     
     @objc func handleRegistration(){
-        print("DEBUG: register")
+        guard let email = emailTextField.text,
+            let fullname = fullnameTextField.text,
+            let password = passwordTextField.text,
+            let profileImage = profileImage else { return }
+        
+        let credentials = AuthCredentials(email: email, password: password, fullname: fullname, profileImage: profileImage)
+        
+        AuthService.registerUser(withCredentials: credentials) { (error) in
+            if error != nil {
+                print("DEBUG: error \(error!.localizedDescription)")
+                return
+            }
+            print("DEBUG: successfully registered")
+            
+        }
     }
     
     @objc func handleShowLogin(){
@@ -129,6 +142,7 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         let image = info[.originalImage] as? UIImage
+        profileImage = image
         selectPhotoButton.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
         selectPhotoButton.layer.borderColor = UIColor(white: 1, alpha: 0.7).cgColor
         selectPhotoButton.layer.borderWidth = 3
