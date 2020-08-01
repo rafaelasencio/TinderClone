@@ -51,7 +51,7 @@ class CardView: UIView {
         
         infoLabel.attributedText = viewModel.userInfoText
         
-        imageView.image = viewModel.user.images.first
+//        imageView.image = viewModel.user.images.first
         
         backgroundColor = .systemPurple
         layer.cornerRadius = 10
