@@ -44,6 +44,7 @@ class HomeController: UIViewController {
     
     func configureUI() {
         view.backgroundColor = .white
+        topStack.delegate = self
         
         let stackView = UIStackView(arrangedSubviews: [topStack, deckView, bottomStack])
         stackView.axis = .vertical
