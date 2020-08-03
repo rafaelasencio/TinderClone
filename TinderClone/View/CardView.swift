@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 enum SwipeDirection:Int {
     case left = -1
@@ -42,7 +43,7 @@ class CardView: UIView {
     
     //MARK: - Lifecycle
     
-    
+    //Este inicializador se ejecuta en el HomeController en el metodo configureCard() en donde se recorre el array de CardViewModel y se crea una instancia de CardView que se añade a la vista deckView
     init(viewModel: CardViewModel) {
         self.viewModel = viewModel
         super.init(frame: .zero)
@@ -51,7 +52,8 @@ class CardView: UIView {
         
         infoLabel.attributedText = viewModel.userInfoText
         
-//        imageView.image = viewModel.user.images.first
+        //The image is Downloaded asynchronously and cached
+        imageView.sd_setImage(with: viewModel.imageUrl, completed: nil)
         
         backgroundColor = .systemPurple
         layer.cornerRadius = 10
@@ -153,6 +155,6 @@ class CardView: UIView {
             viewModel.showPreviousPhoto()
         }
         
-        imageView.image = viewModel.imageToShow
+//        imageView.image = viewModel.imageToShow
     }
 }
