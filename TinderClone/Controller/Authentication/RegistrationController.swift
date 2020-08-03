@@ -83,10 +83,12 @@ class RegistrationController: UIViewController {
         }
     }
     
+    //Lleva al usuario a la pagina para iniciar sesion
     @objc func handleShowLogin(){
         navigationController?.popViewController(animated: true)
     }
     
+    //Asigna los valores de los TextFields(email, fullname y password) al RegistrationViewModel
     @objc func textDidChange(sender: UITextField){
         if sender == emailTextField {
             registrationViewModel.email = sender.text
@@ -119,12 +121,14 @@ class RegistrationController: UIViewController {
         goToLogInButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 32, paddingRight: 32)
     }
     
+    //Ejecuta el método textDidChange cuando el usuario termina de escribir
     func configureTextFieldObservers(){
         emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         fullnameTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
     
+    //Activa/Desactiva el boton en funcion de si los Textfields tienen valor
     func checkFormStatus(){
         if registrationViewModel.formIsValid {
             registrationButton.isEnabled = true
@@ -139,6 +143,8 @@ class RegistrationController: UIViewController {
 
 extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    /* Se ejecuta cuando el usuario selecciona una foto de la galeria o camara
+       y asigna la foto a la del perfil de usuario*/
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         let image = info[.originalImage] as? UIImage

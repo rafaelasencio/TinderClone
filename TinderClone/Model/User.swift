@@ -16,6 +16,7 @@ struct User {
     let profileImageUrl: String
 //    var images: [UIImage]
     
+    //Inicializador para parsear los datos en Firestore
     init(dictionary: [String: Any]) {
         self.name = dictionary["fullname"] as? String ?? ""
         self.age = dictionary["age"] as? Int ?? 0

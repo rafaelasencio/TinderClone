@@ -12,7 +12,7 @@ import Firebase
 class HomeController: UIViewController {
     
     
-    //MARM: - Properties
+    //MARK: - Properties
     
     private let topStack = HomeNavigationStackView()
     private let bottomStack = ButtomControlsStackView()
@@ -30,7 +30,7 @@ class HomeController: UIViewController {
         return v
     }()
     
-    //MARM: - Lifecycle
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,7 @@ class HomeController: UIViewController {
 //        logout()
     }
     
-    //MARM: - Helpers
+    //MARK: - Helpers
     
     func configureUI() {
         view.backgroundColor = .white
@@ -57,6 +57,8 @@ class HomeController: UIViewController {
         stackView.bringSubviewToFront(deckView)
     }
     
+    
+    //Se recorre el array de CardViewModels con los valores de usuarios y creando una instancia de CardView para añadirla a la vista deckView en el HomeController
     func configureCards(){
         print("DEBUG: configure cards now")
         
@@ -67,6 +69,7 @@ class HomeController: UIViewController {
         }
     }
     
+    //Presenta la pagina para iniciar sesion
     func presentLoginController(){
         //Its called after make API call, to go back in the main thread
         DispatchQueue.main.async {
@@ -77,7 +80,8 @@ class HomeController: UIViewController {
         }
     }
     
-    //MARM: - API
+    //MARK: - API
+    
     
     func fetchUser(){
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -87,6 +91,7 @@ class HomeController: UIViewController {
         }
     }
     
+    //
     func fetchUsers(){
         Service.fetchUsers { (users) in
             print("DEBUG: USERS \(users)")
@@ -96,6 +101,7 @@ class HomeController: UIViewController {
         }
     }
     
+    //Comprueba si el usuario esta logeado
     func checkIfUserIsLoggedIn(){
         if Auth.auth().currentUser == nil {
             print("DEBUG: user not logged in")
@@ -105,6 +111,7 @@ class HomeController: UIViewController {
         }
     }
     
+    //Cerrar sesion
     func logout(){
         do {
             try Auth.auth().signOut()

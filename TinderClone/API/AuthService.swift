@@ -44,6 +44,7 @@ struct AuthService {
     
     static func logUserIn(withEmail email: String, password: String,
                           completion: AuthDataResultCallback?){
+        //El resultado de iniciar sesion devuelve en el completion un resultado y error
         Auth.auth().signIn(withEmail: email, password: password, completion: completion)
     }
 }

@@ -56,7 +56,7 @@ class LoginController: UIViewController {
     
     //MARK: - Actions
     
-    
+    //Iniciar sesion
     @objc func handleLogin(){
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
@@ -70,10 +70,12 @@ class LoginController: UIViewController {
         }
     }
     
+    //Dirige al usuario a la pantalla de registro
     @objc func handleShowRegistration(){
         navigationController?.pushViewController(RegistrationController(), animated: true)
     }
     
+    //Asigna los valores de los TextFields(email y password) al LoginViewModel
     @objc func textDidChange(sender: UITextField){
         if sender == emailTextField {
             loginViewModel.email = sender.text
@@ -107,11 +109,13 @@ class LoginController: UIViewController {
         
     }
     
+    //Ejecuta el método textDidChange cuando el usuario termina de escribir
     func configureTextFieldObservers(){
         emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
     
+    //Activa/Desactiva el boton en funcion de si los Textfields tienen valor
     func checkFormStatus(){
         if loginViewModel.formIsValid {
             authButton.isEnabled = true

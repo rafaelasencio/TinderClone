@@ -30,6 +30,7 @@ struct Service {
         }
     }
     
+    //Devuelve los datos del usuario que inicia sesion
     static func fetchUser(withUid uid: String, completion: @escaping(User)->Void){
         COLLECTION_USERS.document(uid).getDocument { (snapshot, error) in
             print("DEBUG: snapshot \(snapshot?.data())")
@@ -42,12 +43,14 @@ struct Service {
     //Loop throw all users in Firestore to instantiate and return an array with total users
     static func fetchUsers(completion: @escaping([User])->Void){
         var users = [User]()
+        
         COLLECTION_USERS.getDocuments { (snapshot, error) in
             snapshot?.documents.forEach({ (document) in
                 let dictionary = document.data()
-                let user = User(dictionary: dictionary)
+                let user = User(dictionary: dictionary) //Accede a los valores de los usuarios en Firestore
                 
                 users.append(user)
+                //Cuando se termina de recorrer todos los datos, se devuelve el array con todos los usuarios
                 if users.count == snapshot?.documents.count{
                     completion(users)
                 }
