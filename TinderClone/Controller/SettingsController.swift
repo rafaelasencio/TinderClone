@@ -14,6 +14,8 @@ class SettingsController: UITableViewController {
     //MARK: - Properties
     
     private let headerView = SettingsHeader()
+    private let imagePicker = UIImagePickerController()
+    private var imageIndex = 0
     
     //MARK: - Lifecycle
     
@@ -27,6 +29,9 @@ class SettingsController: UITableViewController {
     //MARK: - Helpers
     
     func configureUI(){
+        headerView.delegate = self
+        imagePicker.delegate = self
+        
         tableView.separatorStyle = .none
         navigationItem.title = "Settings"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -41,6 +46,11 @@ class SettingsController: UITableViewController {
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 300)
     }
     
+    func setHeaderImage(_ image: UIImage?) {
+        
+        headerView.buttons[imageIndex].setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
+    }
+    
     //MARK: - Actions
     
     @objc func handleCancel(){
@@ -51,4 +61,27 @@ class SettingsController: UITableViewController {
         print("DEBUG: DONE")
     }
     
+}
+
+//MARK: - SettingsHeaderDelegate
+
+extension SettingsController: SettingsHeaderDelegate {
+    
+    func settingsHeader(_ header: SettingsHeader, didSelect index: Int) {
+        self.imageIndex = index
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    
+}
+
+//MARK: - UIImagePickerControllerDelegate
+
+extension SettingsController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let selectedImage = info[.originalImage] as? UIImage
+        setHeaderImage(selectedImage)
+        dismiss(animated: true, completion: nil)
+    }
 }
