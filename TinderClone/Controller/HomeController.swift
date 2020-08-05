@@ -14,6 +14,9 @@ class HomeController: UIViewController {
     
     //MARK: - Properties
     
+    //optional value because when view start is going to be nil
+    private var user: User?
+    
     private let topStack = HomeNavigationStackView()
     private let bottomStack = ButtomControlsStackView()
     
@@ -37,6 +40,7 @@ class HomeController: UIViewController {
         checkIfUserIsLoggedIn()
         configureUI()
         fetchUsers()
+        fetchUser()
 //        logout()
     }
     
@@ -83,12 +87,12 @@ class HomeController: UIViewController {
     
     //MARK: - API
     
-    
+    //Fetch user when view did loaded
     func fetchUser(){
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Service.fetchUser(withUid: uid) { (user) in
             print("DEBUG: user is \(user.name)")
-            
+            self.user = user
         }
     }
     
@@ -121,4 +125,21 @@ class HomeController: UIViewController {
             print("DEBUG: error sign out")
         }
     }
+}
+
+extension HomeController: HomeNavigationStackViewDelegate {
+    
+    func showSettings() {
+        guard let user = self.user else { return }
+        let controller = SettingsController(user: user)
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+    }
+    
+    func showMessages() {
+        
+    }
+    
+    
 }

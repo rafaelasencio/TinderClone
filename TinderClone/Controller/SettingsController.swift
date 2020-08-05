@@ -19,6 +19,7 @@ class SettingsController: UITableViewController {
     private let imagePicker = UIImagePickerController()
     private var imageIndex = 0
     
+    private let user: User
     //MARK: - Lifecycle
     
     
@@ -27,6 +28,15 @@ class SettingsController: UITableViewController {
         configureUI()
     }
     
+    //Initializer called in HomeController when user press Settings button
+    init(user: User) {
+        self.user = user
+        super.init(style: .plain)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: - Helpers
     
@@ -49,6 +59,8 @@ class SettingsController: UITableViewController {
         //Set header view
         tableView.tableHeaderView = headerView
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 300)
+        
+        tableView.backgroundColor = .systemGroupedBackground
     }
     
     func setHeaderImage(_ image: UIImage?) {
@@ -100,11 +112,16 @@ extension SettingsController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! SettingsCell
+        guard let section = SettingsSections(rawValue: indexPath.section) else { return cell}
+        //user comes from the SettingsController initializer which in turn comes from the HomeController
+        let viewModel = SettingsViewModel(user: user, section: section)
+        //Execute didSet block in SettingsCell
+        cell.viewModel = viewModel
         return cell
     }
 }
@@ -120,5 +137,10 @@ extension SettingsController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let section = SettingsSections(rawValue: section) else { return nil }
         return section.description
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let section = SettingsSections(rawValue: indexPath.section) else { return 0 }
+        return section == .ageRange ? 96 : 44
     }
 }
