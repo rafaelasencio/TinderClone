@@ -8,9 +8,14 @@
 
 import UIKit
 
+protocol SettingsCellDelegate {
+    func settingsCell(_ cell: SettingsCell, wantsToUpdateUserWith value: String, for section: SettingsSections)
+}
 class SettingsCell: UITableViewCell {
     
     //MARK: - Properties
+    
+    var delegate: SettingsCellDelegate?
     
     lazy var inputField: UITextField = {
         let tf = UITextField()
@@ -22,6 +27,7 @@ class SettingsCell: UITableViewCell {
         tf.leftView = paddingView
         tf.leftViewMode = .always
         
+        tf.addTarget(self, action: #selector(handleUpdateUserInfo), for: .editingDidEnd)
         return tf
     }()
     
@@ -92,4 +98,11 @@ class SettingsCell: UITableViewCell {
     @objc func handleAgeRangeChanged(){
         
     }
+    
+    @objc func handleUpdateUserInfo(sender: UITextField){
+        
+        guard let value = sender.text else { return }
+        delegate?.settingsCell(self, wantsToUpdateUserWith: value, for: viewModel.section)
+    }
+    
 }

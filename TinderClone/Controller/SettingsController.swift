@@ -19,7 +19,7 @@ class SettingsController: UITableViewController {
     private let imagePicker = UIImagePickerController()
     private var imageIndex = 0
     
-    private let user: User
+    private var user: User
     //MARK: - Lifecycle
     
     
@@ -120,6 +120,7 @@ extension SettingsController {
         guard let section = SettingsSections(rawValue: indexPath.section) else { return cell}
         //user comes from the SettingsController initializer which in turn comes from the HomeController
         let viewModel = SettingsViewModel(user: user, section: section)
+        cell.delegate = self
         //Execute didSet block in SettingsCell
         cell.viewModel = viewModel
         return cell
@@ -142,5 +143,27 @@ extension SettingsController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let section = SettingsSections(rawValue: indexPath.section) else { return 0 }
         return section == .ageRange ? 96 : 44
+    }
+}
+
+//MARK: - SettingsCellDelegate
+
+extension SettingsController: SettingsCellDelegate {
+    
+    func settingsCell(_ cell: SettingsCell, wantsToUpdateUserWith value: String, for section: SettingsSections) {
+        switch section {
+            
+        case .name:
+            user.name = value
+        case .profession:
+            user.profession = value
+        case .age:
+            user.age = Int(value) ?? user.age
+        case .bio:
+            user.bio = value
+        case .ageRange:
+            break
+        }
+        print("DEBUG: update user info")
     }
 }
