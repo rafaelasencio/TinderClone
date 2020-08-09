@@ -30,6 +30,19 @@ struct Service {
         }
     }
     
+    static func saveUserData(user: User, completion: @escaping(Error?) -> Void) {
+        let data = ["uid": user.uid,
+                    "fullname":user.name,
+                    "imageURLs":user.imageURLs,
+                    "age": user.age,
+                    "bio":user.bio,
+                    "profession":user.profession,
+                    "minSeekingAge": user.minSeekingAge,
+                    "maxSeekingAge": user.maxSeekingAge] as [String: Any]
+        
+        COLLECTION_USERS.document(user.uid).setData(data, completion: completion)
+    }
+    
     //Devuelve los datos del usuario que inicia sesion
     static func fetchUser(withUid uid: String, completion: @escaping(User)->Void){
         COLLECTION_USERS.document(uid).getDocument { (snapshot, error) in
