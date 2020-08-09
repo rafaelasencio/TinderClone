@@ -154,5 +154,10 @@ extension HomeController: SettingsControllerDelegate {
         self.user = user
     }
     
+    func settingsControllerWantsToLogout(_ controller: SettingsController) {
+        controller.dismiss(animated: true, completion: nil)
+        logout()
+    }
+    
     
 }

@@ -13,6 +13,7 @@ private let reuseIdentifier = "SettingsCell"
 
 protocol SettingsControllerDelegate: class {
     func settingsController(_ controller: SettingsController, wantsToUpdate user: User )
+    func settingsControllerWantsToLogout(_ controller: SettingsController)
 }
 
 class SettingsController: UITableViewController {
@@ -20,7 +21,9 @@ class SettingsController: UITableViewController {
     
     //MARK: - Properties
     private var user: User
+    
     private lazy var headerView = SettingsHeader(user: user)
+    private let footerView = SettingsFooter()
     private let imagePicker = UIImagePickerController()
     private var imageIndex = 0
     
@@ -67,6 +70,10 @@ class SettingsController: UITableViewController {
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 300)
         
         tableView.backgroundColor = .systemGroupedBackground
+        
+        tableView.tableFooterView = footerView
+        footerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 88)
+        footerView.delegate = self
     }
     
     func setHeaderImage(_ image: UIImage?) {
@@ -204,5 +211,14 @@ extension SettingsController: SettingsCellDelegate {
             break
         }
         print("DEBUG: update user info")
+    }
+}
+
+//MARK: - SettingsFooterDelegate
+
+extension SettingsController: SettingsFooterDelegate {
+    
+    func handleLogout() {
+        delegate?.settingsControllerWantsToLogout(self)
     }
 }

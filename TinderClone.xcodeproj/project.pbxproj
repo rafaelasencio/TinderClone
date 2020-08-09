@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53B24AAF24E0575F008F107C /* SettingsFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B24AAE24E0575F008F107C /* SettingsFooter.swift */; };
 		844D198F24D854E300AFCBEC /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D198E24D854E300AFCBEC /* SettingsController.swift */; };
 		844D199124D8599C00AFCBEC /* SettingsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D199024D8599C00AFCBEC /* SettingsHeader.swift */; };
 		844D199324D981E800AFCBEC /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D199224D981E800AFCBEC /* SettingsCell.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		53B24AAE24E0575F008F107C /* SettingsFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooter.swift; sourceTree = "<group>"; };
 		6EB761D348B131E1B4238A96 /* Pods_TinderClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TinderClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		844D198E24D854E300AFCBEC /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		844D199024D8599C00AFCBEC /* SettingsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeader.swift; sourceTree = "<group>"; };
@@ -119,6 +121,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		53B24AB024E05779008F107C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				844D199024D8599C00AFCBEC /* SettingsHeader.swift */,
+				844D199224D981E800AFCBEC /* SettingsCell.swift */,
+				53B24AAE24E0575F008F107C /* SettingsFooter.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		84DCAEC424CF1F5500960B87 = {
 			isa = PBXGroup;
 			children = (
@@ -211,11 +223,10 @@
 		84DCAF0424CF200B00960B87 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				53B24AB024E05779008F107C /* Settings */,
 				84DCAF0B24CF220200960B87 /* HomeNavigationStackView.swift */,
 				84DCAF0D24CF254500960B87 /* ButtomControlsStackView.swift */,
 				84DCAF0F24CF29B900960B87 /* CardView.swift */,
-				844D199024D8599C00AFCBEC /* SettingsHeader.swift */,
-				844D199224D981E800AFCBEC /* SettingsCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -446,6 +457,7 @@
 				84EE678F24D2396200D630E3 /* Constants.swift in Sources */,
 				84DCAF1E24D04A6100960B87 /* AuthButton.swift in Sources */,
 				84DCAF2024D06B0400960B87 /* AuthenticationViewModel.swift in Sources */,
+				53B24AAF24E0575F008F107C /* SettingsFooter.swift in Sources */,
 				84DCAED124CF1F5500960B87 /* AppDelegate.swift in Sources */,
 				84DCAED324CF1F5500960B87 /* SceneDelegate.swift in Sources */,
 				84DCAF0C24CF220200960B87 /* HomeNavigationStackView.swift in Sources */,
