@@ -52,7 +52,7 @@ class CardView: UIView {
         
         infoLabel.attributedText = viewModel.userInfoText
         
-        //The image is Downloaded asynchronously and cached
+        //sd_setImage download image asynchronously and cached
         imageView.sd_setImage(with: viewModel.imageUrl, completed: nil)
         
         backgroundColor = .systemPurple

@@ -18,12 +18,11 @@ class SettingsController: UITableViewController {
     
     
     //MARK: - Properties
-    
-    private let headerView = SettingsHeader()
+    private var user: User
+    private lazy var headerView = SettingsHeader(user: user)
     private let imagePicker = UIImagePickerController()
     private var imageIndex = 0
     
-    private var user: User
     weak var delegate: SettingsControllerDelegate?
     
     //MARK: - Lifecycle

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol SettingsHeaderDelegate: class {
     func settingsHeader(_ header: SettingsHeader, didSelect index: Int)
@@ -17,6 +18,7 @@ class SettingsHeader: UIView {
     
     //MARK: - Properties
     
+    private let user: User
     weak var delegate: SettingsHeaderDelegate?
     var buttons = [UIButton]()
     //variables are lazy because we are declaring the method out of any initializer or different method
@@ -25,8 +27,9 @@ class SettingsHeader: UIView {
     lazy var button3 = createButton(2)
     
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(user: User) {
+        self.user = user
+        super.init(frame: .zero)
         backgroundColor = .systemGroupedBackground
         
         buttons.append(button1) //another option: buttons.append(createButton(0))
@@ -44,6 +47,7 @@ class SettingsHeader: UIView {
         stack.spacing = 16
         stack.anchor(top: topAnchor, left: button1.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 16, paddingLeft: 16, paddingBottom: 16, paddingRight: 16)
         
+        loadUserPhotos()
     }
     
     required init?(coder: NSCoder) {
@@ -62,6 +66,16 @@ class SettingsHeader: UIView {
         button.addTarget(self, action: #selector(handleSelectPhoto), for: .touchUpInside)
         button.tag = index
         return button
+    }
+    
+    func loadUserPhotos() {
+        let imageURLs = user.imageURLs.map{(URL(string: $0))}
+        
+        for (index, url) in imageURLs.enumerated() {
+            SDWebImageManager.shared().loadImage(with: url, options: .continueInBackground, progress: nil) { (image, _, _, _, _, _) in
+                self.buttons[index].setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
+            }
+        }
     }
     
     

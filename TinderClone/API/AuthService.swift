@@ -33,7 +33,7 @@ struct AuthService {
                 guard let uid = result?.user.uid else { return }
                 let data = ["email": credentials.email,
                             "fullname": credentials.fullname,
-                            "imageUrl":imageUrl,
+                            "imageURLs":[imageUrl],
                             "uid":uid,
                 "age":18] as [String: Any]
                 

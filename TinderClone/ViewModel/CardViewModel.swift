@@ -11,7 +11,7 @@ import UIKit
 class CardViewModel {
     
     let user: User
-    
+    let imageURLs: [String]
     let userInfoText: NSAttributedString
     
     private var imageIndex = 0
@@ -27,7 +27,9 @@ class CardViewModel {
         
         self.userInfoText = attrText
         
-        self.imageUrl = URL(string: user.profileImageUrl)
+//        self.imageUrl = URL(string: user.imageURLs)
+        self.imageURLs = user.imageURLs
+        self.imageUrl = URL(string: self.imageURLs[0])
     }
     
     func showNextPhoto(){
