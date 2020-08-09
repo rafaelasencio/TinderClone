@@ -10,6 +10,10 @@ import UIKit
 
 private let reuseIdentifier = "SettingsCell"
 
+protocol SettingsControllerDelegate: class {
+    func settingsController(_ controller: SettingsController, wantsToUpdate user: User )
+}
+
 class SettingsController: UITableViewController {
     
     
@@ -20,6 +24,8 @@ class SettingsController: UITableViewController {
     private var imageIndex = 0
     
     private var user: User
+    weak var delegate: SettingsControllerDelegate?
+    
     //MARK: - Lifecycle
     
     
@@ -74,8 +80,12 @@ class SettingsController: UITableViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    /*When user press done button the view end editing and the method handleUpdateUserInfo in SettingCell is called.
+    With delegate method, the user values updated are passed to the HomeController user */
     @objc func handleDone(){
         print("DEBUG: DONE")
+        view.endEditing(true)
+        delegate?.settingsController(self, wantsToUpdate: user)
     }
     
 }
@@ -150,6 +160,12 @@ extension SettingsController {
 
 extension SettingsController: SettingsCellDelegate {
     
+    func settingsCell(_ cell: SettingsCell, wantsToUpdateAgeRangeWith sender: UISlider) {
+        print("DEBUG: update age preferences here")
+    }
+    
+    
+    //Recieve value from textField and update the user value for specific section
     func settingsCell(_ cell: SettingsCell, wantsToUpdateUserWith value: String, for section: SettingsSections) {
         switch section {
             

@@ -10,6 +10,7 @@ import UIKit
 
 protocol SettingsCellDelegate {
     func settingsCell(_ cell: SettingsCell, wantsToUpdateUserWith value: String, for section: SettingsSections)
+    func settingsCell(_ cell: SettingsCell, wantsToUpdateAgeRangeWith sender: UISlider)
 }
 class SettingsCell: UITableViewCell {
     
@@ -49,12 +50,9 @@ class SettingsCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        selectionStyle = .none
         addSubview(inputField)
-        inputField.fillSuperview()
-        
-        minAgeLabel.text = "Min: 18"
-        maxAgeLabel.text = "Max: 60"
+        inputField.fillSuperview() 
         
         let minStack = UIStackView(arrangedSubviews: [minAgeLabel, minAgeSlider])
         minStack.spacing = 24
@@ -86,17 +84,30 @@ class SettingsCell: UITableViewCell {
     
     //Execute when viewModel is instantiate
     func configure() {
+        //Hide Textfield or Slider depending section
         inputField.isHidden = viewModel.shouldHideInputField
         sliderStack.isHidden = viewModel.shouldHideSlider
         
         inputField.placeholder = viewModel.placeholderText
         inputField.text = viewModel.value
+        
+        //Set labels with slider value
+        minAgeLabel.text = viewModel.minAgeLabelText(forValue: viewModel.minAgeSliderValue)
+        maxAgeLabel.text = viewModel.maxAgeLabelText(forValue: viewModel.maxAgeSliderValue)
+        
+        minAgeSlider.setValue(viewModel.minAgeSliderValue, animated: true)
+        maxAgeSlider.setValue(viewModel.maxAgeSliderValue, animated: true)
     }
     
     //MARK: - Actions
     
-    @objc func handleAgeRangeChanged(){
-        
+    //Set text for label depending witch Slider is changing
+    @objc func handleAgeRangeChanged(sender: UISlider){
+        if sender == minAgeSlider {
+            minAgeLabel.text = viewModel.minAgeLabelText(forValue: sender.value)
+        } else {
+            maxAgeLabel.text = viewModel.maxAgeLabelText(forValue: sender.value)
+        }
     }
     
     @objc func handleUpdateUserInfo(sender: UITextField){
